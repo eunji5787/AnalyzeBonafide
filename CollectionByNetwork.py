@@ -2,6 +2,7 @@ from collections import Counter
 from pymongo import MongoClient
 import json
 import sys
+import glob
 
 client = MongoClient('localhost', 27017)
 db_name = client.Bonafide
@@ -14,15 +15,21 @@ def insertDoc(colt_name, js_dict):
 	# insert each doc in a selected collection
 	colt_name.insert(js_dict)
 
-def NumofProtocol(m_result):
+def networkNotNull(network):
+	# if user does not submit network name - others
+	if len(network) == 0:
+		return "NoneInput"
+	else:
+		return network
+
+def numofProtocol(m_result):
 	# count the number of each protocols being tested
 	protocol_list = map(lambda x : m_result[x]["protocol_specification_name"], range(len(m_result)))
 	return dict(Counter(protocol_list))
 
 def stuInfoLog(stname, stnum, network, protocol_dict):
 	# insert the student's information and tested protocols information into StudentInfoLog collection
-	if len(network) == 0:
-		network = "NoneInput"
+
 	protocol_dict["stname"] = stname
 	protocol_dict["stnum"] = stnum
 	protocol_dict["network"] = network
@@ -45,20 +52,20 @@ def docByProtocol(js_dict):
 	stname = js_dict["Student Name"]
 	stnum = js_dict["Student Number"]
 	dataplan = js_dict["Dataplan"]
-	network = js_dict["Network"]
+	network = networkNotNull(js_dict["Network"])
 	m_result = js_dict["measurement_results"]
 
-	stuInfoLog(stname, stnum, network, NumofProtocol(m_result))
+	stuInfoLog(stname, stnum, network, numofProtocol(m_result))
 
 	for i in m_result:
 		i['Dataplan'] = dataplan
 		i['Network'] = network
 		insertDoc(selectCollection(network), i)
 
-if sys.argv[0] == "":
-	print "input valid json file name"
-else:
-	js_dict = loadJson(sys.argv[1])
-	docByUsertoken(js_dict)
-	docByProtocol(js_dict)
+def findJsonfilename():
+	return glob.glob("*.json")
+
+for i in map(lambda x: loadJson(x), findJsonfilename()):
+	docByUsertoken(i)
+	docByProtocol(i)
 
