@@ -3,6 +3,7 @@ from pymongo import MongoClient
 import json
 import sys
 import glob
+import JsonFormatter
 
 client = MongoClient('localhost', 27017)
 db_name = client.Bonafide
@@ -39,7 +40,7 @@ def loadJson(filename):
 	# load json file
 	with open(filename, 'r') as f:
 		js_dict =  json.loads(f.read())
-	return js_dict
+	return JsonFormatter.strToInt(js_dict)
 
 def docByUsertoken(js_dict):
 	# insert into DocByUsertoken collection, each json file (one user token) is stored as one document
