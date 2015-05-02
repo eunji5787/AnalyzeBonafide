@@ -2,14 +2,26 @@ import csv
 import DataProcessing
 import sys
 
-cw = csv.writer(file('ProtocolAvg.csv', 'w'))
-prot_column = DataProcessing.allProtName()
-prot_column.insert(0, "ProtocolAvg")
-cw.writerow(prot_column)
+prot_dict = {}
 
-print DataProcessing.avg_dict
+cw = csv.writer(file('ProtocolAvg.csv', 'w'))
+colt_row = DataProcessing.allColtName()
+for i in DataProcessing.allProtName():
+	prot_dict[i] = [i]
+colt_row.insert(0, sys.argv[1])
+cw.writerow(colt_row)
+
+
+for net, res in DataProcessing.avg_dict.items():
+	ind = colt_row.index(net)
+	map(lambda x: prot_dict[x["_id"]].insert(ind,x["avgbyprot"]), res)
+
+map(lambda (k,v): cw.writerow(v), prot_dict.items())
+
 
 """
+// this function is removed 
+// It will be used if the col and row is changed
 for net, res in DataProcessing.avg_dict.items():
 	li = []
 	li.append(net)
