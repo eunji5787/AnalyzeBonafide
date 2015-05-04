@@ -4,7 +4,7 @@ import sys
 
 prot_dict = {}
 
-cw = csv.writer(file('ProtocolAvg.csv', 'w'))
+cw = csv.writer(file(sys.argv[1]+'.csv', 'w'))
 colt_row = DataProcessing.allColtName()
 for i in DataProcessing.allProtName():
 	prot_dict[i] = [i]

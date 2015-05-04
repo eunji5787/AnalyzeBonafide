@@ -1,9 +1,19 @@
-import DataProcessing
+#import DataProcessing
 import sys
 import Gnuplot
+import glob
 
-chartname = sys.argv[1]
-chartpng = chartname+".png"
+def getCvsfilename():
+	csv_list = glob.glob("*.csv")
+	for i in csv_list:
+		print "If you want to see " + i + " 's chart. Choose " + str(csv_list.index(i))
+	inputcsv = raw_input(" Input number according to the info ")
+	while( inputcsv.isdigit() == False ):
+		inputcsv = raw_input(" You can input only number. Please input number ")
+	return csv_list[int(inputcsv)]
+
+chartname = getCvsfilename()
+chartpng = chartname.strip(".csv")+".png"
 
 g = Gnuplot.Gnuplot()
 g.title(chartname)
@@ -24,7 +34,7 @@ g('set datafile separator ","')
 g('set key autotitle columnhead')
 g('set auto x')
 g('set yrange[0:*]')
-plotcmd = "'ProtocolAvg.csv' using 2:xtic(1) ti col fc rgb fi"
+plotcmd = "'"+str(chartname)+"'" + " using 2:xtic(1) ti col fc rgb fi"
 plotcmd += ", '' u 3 ti col fc rgb se"
 plotcmd += ", '' u 4 ti col fc rgb th"
 plotcmd += ", '' u 5 ti col fc rgb fo"

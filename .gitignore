@@ -9,3 +9,7 @@
 # Result file should not be gitted
 ###################
 *.csv
+
+# Result Png file should not be gitted
+##################
+*.png
