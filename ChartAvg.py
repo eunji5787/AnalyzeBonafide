@@ -1,4 +1,4 @@
-#import DataProcessing
+#import QueryAvg
 import sys
 import Gnuplot
 import glob
