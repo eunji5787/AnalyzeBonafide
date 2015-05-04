@@ -1,0 +1,11 @@
+# OS generated files
+####################
+.DS_Store
+
+# Json file should not be gitted
+####################
+*.json
+
+# Result file should not be gitted
+###################
+*.csv
