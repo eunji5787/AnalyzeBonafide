@@ -40,7 +40,8 @@ def loadJson(filename):
 	# load json file
 	with open(filename, 'r') as f:
 		js_dict =  json.loads(f.read())
-	return JsonFormatter.strToInt(js_dict)
+	if db_name["DocByUsertoken"].find({"user_token": js_dict["user_token"]}).count() == 0:
+		return JsonFormatter.strToInt(js_dict)
 
 def docByUsertoken(js_dict):
 	# insert into DocByUsertoken collection, each json file (one user token) is stored as one document
@@ -66,7 +67,10 @@ def docByProtocol(js_dict):
 def findJsonfilename():
 	return glob.glob("*.json")
 
+
 for i in map(lambda x: loadJson(x), findJsonfilename()):
-	docByUsertoken(i)
-	docByProtocol(i)
+	if i != None:
+		# Bad.. Should be fixed
+		docByUsertoken(i)
+		docByProtocol(i)
 
