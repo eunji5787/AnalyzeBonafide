@@ -7,9 +7,13 @@
 *.json
 
 # Result file should not be gitted
-###################
+####################
 *.csv
 
 # Result Png file should not be gitted
-##################
+####################
 *.png
+
+# Python compiled file should not be gitted
+####################
+*.pyc
