@@ -65,7 +65,7 @@ def docByProtocol(js_dict):
 		insertDoc(selectCollection(network), i)
 
 def findJsonfilename():
-	return glob.glob("*.json")
+	return glob.glob("./Result/*.json")
 
 
 for i in map(lambda x: loadJson(x), findJsonfilename()):

@@ -24,7 +24,7 @@ g.ylabel(chartname)
 g('fi = "#99ffff"')
 g('se = "#4671d5"')
 g('th = "#ff0000"')
-g('fo = "#f36e00"')
+#g('fo = "#f36e00"')
 g('set term png')
 g('set output "%s"'%chartpng)
 g('set style data histogram')
@@ -37,7 +37,7 @@ g('set yrange[0:*]')
 plotcmd = "'"+str(chartname)+"'" + " using 2:xtic(1) ti col fc rgb fi"
 plotcmd += ", '' u 3 ti col fc rgb se"
 plotcmd += ", '' u 4 ti col fc rgb th"
-plotcmd += ", '' u 5 ti col fc rgb fo"
+#plotcmd += ", '' u 5 ti col fc rgb fo"
 
 #plotcmd = "for [col=2:5] 'ProtocolAvg.csv' using col:xtic(1) ti col fc rgb fi"
 g.plot(plotcmd)

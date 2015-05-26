@@ -41,5 +41,3 @@ else:
 	for colt_name in allColtName():
 		avg_dict[colt_name]=list(db_name[colt_name].aggregate(agvCommand(yaxis)))
 
-
-
