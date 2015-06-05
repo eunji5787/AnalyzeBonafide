@@ -1,3 +1,4 @@
+import GlobalDirEnviron
 from collections import Counter
 from pymongo import MongoClient
 import json
@@ -65,7 +66,7 @@ def docByProtocol(js_dict):
 		insertDoc(selectCollection(network), i)
 
 def findJsonfilename():
-	return glob.glob("./Result/*.json")
+	return glob.glob("../"+GlobalDirEnviron.Student_Data_Dir+"/*.json")
 
 
 for i in map(lambda x: loadJson(x), findJsonfilename()):

@@ -1,10 +1,14 @@
 #import QueryAvg
+import GlobalDirEnviron
 import sys
 import Gnuplot
 import glob
 
+Csv_Dir = "../"+GlobalDirEnviron.Csv_Result_Dir+"/"
+Chart_Path = "../"+ GlobalDirEnviron.Chart_Result_Dir+"/"
+
 def getCvsfilename():
-	csv_list = glob.glob("*.csv")
+	csv_list = glob.glob(Csv_Dir+"*.csv")
 	for i in csv_list:
 		print "If you want to see " + i + " 's chart. Choose " + str(csv_list.index(i))
 	inputcsv = raw_input(" Input number according to the info ")
@@ -13,12 +17,13 @@ def getCvsfilename():
 	return csv_list[int(inputcsv)]
 
 chartname = getCvsfilename()
-chartpng = chartname.strip(".csv")+".png"
+graphname = chartname.split("/")[-1].strip(".csv")
+chartpng = Chart_Path+graphname+".png"
 
 g = Gnuplot.Gnuplot()
-g.title(chartname)
+g.title(graphname)
 g.xlabel('Protocolname')
-g.ylabel(chartname)
+g.ylabel(graphname)
 #g('set palette defined ( 1  "#0025ad", 2  "#0042ad", 3  "#0060ad", 4  "#007cad", 5  "#0099ad",')
 #g('set palette defined ( 6  "#00ada4", 7  "#00ad88", 8  "#00ad6b", 9  "#007cad", 10  "#00ad4e",')
 g('fi = "#99ffff"')

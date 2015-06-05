@@ -1,10 +1,11 @@
+import GlobalDirEnviron
 import csv
 import QueryAvg
 import sys
 
 prot_dict = {}
-
-cw = csv.writer(file(sys.argv[1]+'.csv', 'w'))
+fname =  "../"+GlobalDirEnviron.Csv_Result_Dir+"/"+sys.argv[1]+'.csv'
+cw = csv.writer(file(fname, 'w'))
 colt_row = QueryAvg.allColtName()
 for i in QueryAvg.allProtName():
 	prot_dict[i] = [i]*(len(colt_row)+1)
