@@ -6,9 +6,9 @@ import sys
 prot_dict = {}
 fname =  "../"+GlobalDirEnviron.Csv_Result_Dir+"/"+sys.argv[1]+'.csv'
 cw = csv.writer(file(fname, 'w'))
-colt_row = QueryAvg.allNetworkType()
+colt_row = QueryAvg.allProvider()
 # For testing csv Provider
-#colt_row = QueryAvg.allProvider()
+# colt_row = QueryAvg.allProvider()
 for i in QueryAvg.allProtName():
 	prot_dict[i] = [i]*(len(colt_row)+1)
 colt_row.insert(0, sys.argv[1])

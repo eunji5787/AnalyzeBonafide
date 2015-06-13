@@ -62,7 +62,6 @@ def loadJson(filename):
 def findJsonfilename():
 	return glob.glob("../"+GlobalDirEnviron.Student_Data_Dir+"/*.json")
 
-
 # main function
 for i in map(lambda x: loadJson(x), findJsonfilename()):
 	# if there is no DocByUserToken Collection or new json data has been inserted 

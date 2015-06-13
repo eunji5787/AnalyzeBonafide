@@ -40,7 +40,7 @@ if len(sys.argv) == 1:
   print "Input the yaxis label"
 else:
 	yaxis = sys.argv[1]
-	for colt_name in allNetworkType():
+	for colt_name in allProvider():
 	# For testing provider csv
 	#for colt_name in allProvider():
 		avg_dict[colt_name]=list(db_name[colt_name].aggregate(agvCommand(yaxis)))

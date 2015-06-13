@@ -10,7 +10,7 @@ def selectCollection(colt_name):
 
 def upsertDoc(colt_name, user_token, protocol_specification_name, js_dict):
 	# Using upsert function to avoid duplicate usertoken-protocol being inserted
-	# The first usertoken-protocol dict will only be inserted
+	# The last usertoken-protocol dict will only be inserted
 	colt_name.update({
 		"user_token": user_token,
 		"protocol_specification_name":protocol_specification_name},
@@ -36,14 +36,19 @@ def createISPcollection(pv_dict):
 	m_result = pv_dict["measurement_results"]
 
 	for i in m_result:
-		i['Dataplan'] = dataplan
-		i['Provider'] = provider
-		i['Network'] = network
-		i["Student Name"] = stname
-		i["Student Number"] = stnum
-		#insertDoc(selectCollection(provider), i)
-		upsertDoc(
-			selectCollection(provider), i["user_token"], i["protocol_specification_name"], i)
+		# insert document only if the test has been finished successfully
+		if ( i["upload_protocol_completness"] == "SUCCESS" and
+		 i["upload_random_completness"] == "SUCCESS" and
+		 i["download_protocol_completness"] == "SUCCESS" and 
+		 i["download_random_completness"] == "SUCCESS" ) :
+			i['Dataplan'] = dataplan
+			i['Provider'] = provider
+			i['Network'] = network
+			i["Student Name"] = stname
+			i["Student Number"] = stnum
+			#insertDoc(selectCollection(provider), i)
+			upsertDoc(
+				selectCollection(provider), i["user_token"], i["protocol_specification_name"], i)
 
 # main function
 map(lambda x: createISPcollection(x), db_name['DocByUsertoken'].find())
